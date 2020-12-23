@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Loader from "./Loader";
 import SeasonDisplay from "./SeasonDisplay";
 import "./styles.css";
 
@@ -19,10 +20,16 @@ class App extends React.Component {
   }
 
   render() {
-    if (!this.state.lat && !this.state.long) {
+    if (this.state.errorMsg && !this.state.lat) {
       return <div>Error: {this.state.errorMsg}</div>;
-    } else {
+    } else if (this.state.lat && !this.state.errorMsg) {
       return <SeasonDisplay lat={this.state.lat} />;
+    } else {
+      return (
+        <div className="loading">
+          <Loader />
+        </div>
+      );
     }
   }
 }
